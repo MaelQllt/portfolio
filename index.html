@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Maël Quillat, cartographe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#F6F3ED;color:#313851;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:#313851;text-decoration-thickness:1px;text-underline-offset:4px}
+a:hover{color:#5d6477}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+  <header style="max-width:1520px;width:100%;margin:0 auto;padding:24px clamp(20px,4vw,56px)">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <a href="#top" style="text-decoration:none;font-family:'Hanken Grotesk',system-ui;font-weight:600;font-size:17px">Maël Quillat</a>
+      <nav style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px">
+        <a href="#montagne" style="text-decoration:none">Travaux</a>
+        <a href="#apropos" style="text-decoration:none">À propos</a>
+        <a href="#contact" style="text-decoration:none">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" style="flex:1">
+    <section data-screen-label="Accueil" style="max-width:1520px;margin:0 auto;padding:clamp(32px,6vw,96px) clamp(20px,4vw,56px) clamp(64px,8vw,120px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(48px,6vw,88px);align-items:center">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <h1 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:clamp(56px,7.4vw,112px);line-height:0.95;font-weight:600;letter-spacing:-0.03em;text-wrap:balance">Cartes, randonnées et mises en page</h1>
+        <p style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.5;max-width:40ch;color:#5d6477;text-wrap:pretty">Maël Quillat, cartographe et développeur web. Élève ingénieur en géomatique à Géodata Paris, filière Carthagéo.</p>
+        <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px">
+          <a href="#montagne">Voir les travaux ↓</a>
+          <a href="mailto:mael.quillat@orange.fr">mael.quillat@orange.fr</a>
+        </div>
+      </div>
+      <div style="position:relative;width:100%;max-width:680px;justify-self:center;aspect-ratio:1.18/1">
+        <button onClick="{{ heroA }}" aria-label="Étangs de Bassiès" style="position:absolute;left:0;top:8%;width:38%;padding:0;border:0;background:none;cursor:zoom-in;z-index:1;transform:rotate(-3deg);transition:transform 220ms ease;box-shadow:0 20px 50px rgba(49,56,81,0.16)" style-hover="transform:rotate(-3deg) translateY(-8px);z-index:10">
+          <img src="img/t/bassies-1.jpg" alt="Étangs de Bassiès" style="width:100%;display:block">
+        </button>
+        <button onClick="{{ heroC }}" aria-label="Pico de Aneto" style="position:absolute;right:0;top:10%;width:38%;padding:0;border:0;background:none;cursor:zoom-in;z-index:1;transform:rotate(2.5deg);transition:transform 220ms ease;box-shadow:0 20px 50px rgba(49,56,81,0.16)" style-hover="transform:rotate(2.5deg) translateY(-8px);z-index:10">
+          <img src="img/t/aneto-1.jpg" alt="Pico de Aneto" style="width:100%;display:block">
+        </button>
+        <button onClick="{{ heroB }}" aria-label="Le Petit Vignemale" style="position:absolute;left:31%;top:0;width:38%;padding:0;border:0;background:none;cursor:zoom-in;z-index:2;transition:transform 220ms ease;box-shadow:0 28px 64px rgba(49,56,81,0.22)" style-hover="transform:translateY(-8px);z-index:10">
+          <img src="img/t/vignemale-1.jpg" alt="Le Petit Vignemale" style="width:100%;display:block">
+        </button>
+      </div>
+    </section>
+
+    <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="2">
+      <section id="{{ cat.id }}" data-screen-label="{{ cat.title }}" style="max-width:1520px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(20px,4vw,56px);scroll-margin-top:16px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px 64px;align-items:end;padding-top:24px;border-top:1px solid #C3CBD3;margin-bottom:40px">
+          <h2 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:clamp(36px,4.2vw,60px);line-height:1;font-weight:600;letter-spacing:-0.03em">{{ cat.title }}</h2>
+          <div style="display:flex;justify-content:space-between;align-items:end;gap:32px">
+            <p style="margin:0;font-size:16px;line-height:1.55;color:#5d6477;max-width:50ch;text-wrap:pretty">{{ cat.intro }}</p>
+            <span style="font-size:15px;color:#5d6477;white-space:nowrap">{{ cat.count }}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:48px 28px">
+          <sc-for list="{{ cat.items }}" as="p" hint-placeholder-count="4">
+            <article style="flex:{{ p.flex }};min-width:0;max-width:{{ p.maxW }};display:flex;flex-direction:column;gap:16px">
+              <div style="position:relative;display:flex;gap:6px;width:100%;aspect-ratio:{{ p.ar }}"><sc-for list="{{ p.cardImgs }}" as="ci" hint-placeholder-count="1"><button onClick="{{ ci.open }}" aria-label="Agrandir {{ p.title }}" style="position:relative;display:block;flex:{{ ci.grow }} 1 0;min-width:0;height:100%;padding:0;border:0;background:transparent;cursor:zoom-in;overflow:hidden" style-hover="opacity:0.92">
+                <img src="{{ ci.src }}" alt="{{ p.title }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></button></sc-for>
+                <sc-if value="{{ p.multi }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute;top:10px;left:10px;font-size:13px;font-weight:500;background:#F6F3ED;color:#313851;padding:4px 10px">{{ p.pagesLabel }}</span>
+                </sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <h3 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:20px;line-height:1.2;font-weight:600;letter-spacing:-0.01em;text-wrap:balance">{{ p.title }}</h3>
+                <span style="font-size:14px;line-height:1.4;color:#5d6477">{{ p.meta }}</span>
+                <sc-if value="{{ showDetails }}" hint-placeholder-val="{{ true }}">
+                  <p style="margin:6px 0 0;font-size:15px;line-height:1.55;text-wrap:pretty">{{ p.desc }}</p>
+                  <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin-top:6px;font-size:13.5px;line-height:1.45">
+                    <sc-if value="{{ p.tools }}" hint-placeholder-val="{{ true }}"><span style="color:#5d6477">Outils</span><span>{{ p.tools }}</span></sc-if>
+                    <sc-if value="{{ p.sources }}" hint-placeholder-val="{{ true }}"><span style="color:#5d6477">Sources</span><span>{{ p.sources }}</span></sc-if>
+                  </div>
+                </sc-if>
+              </div>
+            </article>
+            <sc-if value="{{ p.brk }}" hint-placeholder-val="{{ false }}"><div style="flex-basis:100%;height:0;margin-top:-48px"></div></sc-if>
+          </sc-for>
+          <div aria-hidden="true" style="flex:1000 1 0px;height:0"></div>
+        </div>
+      </section>
+    </sc-for>
+
+    <section id="apropos" data-screen-label="À propos" style="max-width:1520px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(20px,4vw,56px);scroll-margin-top:16px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px 64px;padding-top:24px;border-top:1px solid #C3CBD3">
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <h2 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:clamp(36px,4.2vw,60px);line-height:1;font-weight:600;letter-spacing:-0.03em">À propos</h2>
+          <p style="margin:0;font-size:17px;line-height:1.6;max-width:56ch;text-wrap:pretty">Élève ingénieur en géomatique à Géodata Paris (anciennement ENSG), en filière Carthagéo avec le master 2 de Paris 1 Panthéon-Sorbonne. J'ai été stagiaire développeur géospatial chez Makina Corpus à Toulouse, sur le visualiseur cartographique open source TerraVisu, et stagiaire en télédétection au laboratoire GEP de l'Universidad de Chile.</p>
+          <p style="margin:0;font-size:17px;line-height:1.6;max-width:56ch;color:#5d6477;text-wrap:pretty">Les cartes de randonnée sont tirées de mes propres sorties dans les Pyrénées, chacune avec sa propre identité graphique.</p>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ skills }}" as="s" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:minmax(130px,0.7fr) 2fr;gap:16px;padding:16px 0;border-bottom:1px solid #C3CBD3">
+              <span style="font-size:15px;color:#5d6477">{{ s.label }}</span>
+              <span style="font-size:15.5px;line-height:1.5">{{ s.items }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" data-screen-label="Contact" style="background:#313851;color:#F6F3ED;scroll-margin-top:16px">
+    <div style="max-width:1520px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(20px,4vw,56px) 32px;display:flex;flex-direction:column;gap:64px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:end">
+        <h2 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:clamp(48px,6vw,92px);line-height:0.95;font-weight:600;letter-spacing:-0.03em">Me contacter</h2>
+        <div style="display:flex;flex-direction:column;gap:12px;font-size:18px">
+          <a href="mailto:mael.quillat@orange.fr" style="color:#f1f0ec" style-hover="color:#C3CBD3">mael.quillat@orange.fr</a>
+          <a href="tel:+33637687922" style="color:#f1f0ec" style-hover="color:#C3CBD3">06 37 68 79 22</a>
+          <a href="https://www.linkedin.com/in/maelquillat" target="_blank" rel="noopener" style="color:#f1f0ec" style-hover="color:#C3CBD3">linkedin.com/in/maelquillat</a>
+          <a href="https://github.com/MaelQllt" target="_blank" rel="noopener" style="color:#f1f0ec" style-hover="color:#C3CBD3">github.com/MaelQllt</a>
+          <button onClick="{{ downloadCV }}" style="align-self:flex-start;margin-top:12px;padding:13px 22px;border:0;background:#F6F3ED;color:#313851;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600" style-hover="background:#C3CBD3">Télécharger le CV</button>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px;color:#C3CBD3;border-top:1px solid #4a5270;padding-top:18px">
+        <span>© Maël Quillat 2026</span>
+        <span>{{ totalLabel }}</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ lb }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" style="position:fixed;inset:0;z-index:50;background:#0c0c0b;color:#f1f0ec;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,1fr)">
+      <div style="position:relative;display:flex;flex-direction:column;min-width:0;min-height:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;font-size:14px">
+          <span style="color:#a8a59d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ lb.counter }}</span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <span style="color:#a8a59d;font-size:13px;margin-right:8px">{{ hdLabel }}</span>
+            <button onClick="{{ zoomOut }}" aria-label="Dézoomer" style="width:38px;height:38px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">−</button>
+            <span style="min-width:58px;text-align:center">{{ zoomLabel }}</span>
+            <button onClick="{{ zoomIn }}" aria-label="Zoomer" style="width:38px;height:38px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">+</button>
+            <button onClick="{{ zoomReset }}" style="height:38px;padding:0 14px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-family:inherit;font-size:13.5px" style-hover="background:#33322e">Ajuster</button>
+            <button onClick="{{ toggleInfo }}" style="height:38px;padding:0 14px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-family:inherit;font-size:13.5px" style-hover="background:#33322e">Infos</button>
+            <button onClick="{{ close }}" aria-label="Fermer" style="width:38px;height:38px;background:#f1f0ec;color:#0c0c0b;border:0;cursor:pointer;font-size:15px;margin-left:6px">✕</button>
+          </div>
+        </div>
+        <div ref="{{ stageRef }}" onMouseDown="{{ onDown }}" style="position:relative;flex:1;min-height:0;overflow:hidden;background:{{ lb.stageBg }};cursor:{{ cursor }};user-select:none">
+          <img src="{{ lb.src }}" alt="{{ lb.title }}" draggable="false" style="position:absolute;inset:20px;width:calc(100% - 40px);height:calc(100% - 40px);object-fit:contain;transform:{{ transform }};transform-origin:center;transition:{{ transition }}">
+          <button onClick="{{ prev }}" aria-label="Précédent" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:46px;height:46px;background:rgba(34,33,31,0.9);color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">←</button>
+          <button onClick="{{ next }}" aria-label="Suivant" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:46px;height:46px;background:rgba(34,33,31,0.9);color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">→</button>
+        </div>
+        <sc-if value="{{ lb.multi }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:8px;justify-content:center;padding:12px 20px 16px;overflow-x:auto">
+            <sc-for list="{{ lb.pageList }}" as="pg" hint-placeholder-count="2">
+              <button onClick="{{ pg.go }}" aria-label="Page {{ pg.n }}" style="flex:none;height:64px;padding:0;border:2px solid {{ pg.border }};background:#22211f;cursor:pointer;opacity:{{ pg.opacity }}">
+                <img src="{{ pg.thumb }}" alt="" style="height:100%;display:block">
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ infoOpen }}" hint-placeholder-val="{{ true }}">
+        <aside style="width:min(360px,80vw);border-left:1px solid #33322e;padding:28px 24px;overflow-y:auto;display:flex;flex-direction:column;gap:18px">
+          <span style="font-size:14px;color:#a8a59d">{{ lb.category }}</span>
+          <h3 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:28px;line-height:1.1;font-weight:600;letter-spacing:-0.02em;text-wrap:balance">{{ lb.title }}</h3>
+          <p style="margin:0;font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ lb.desc }}</p>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14px;line-height:1.45;border-top:1px solid #33322e;padding-top:16px">
+            <span style="color:#a8a59d">Année</span><span>{{ lb.year }}</span>
+            <span style="color:#a8a59d">Contexte</span><span>{{ lb.context }}</span>
+            <sc-if value="{{ lb.tools }}" hint-placeholder-val="{{ true }}"><span style="color:#a8a59d">Outils</span><span>{{ lb.tools }}</span></sc-if>
+            <sc-if value="{{ lb.sources }}" hint-placeholder-val="{{ true }}"><span style="color:#a8a59d">Sources</span><span>{{ lb.sources }}</span></sc-if>
+          </div>
+          <sc-if value="{{ lb.pdf }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ openPdf }}" style="align-self:flex-start;padding:10px 16px;border:1px solid #f1f0ec;background:none;color:#f1f0ec;cursor:pointer;font-family:inherit;font-size:14px" style-hover="background:#f1f0ec;color:#0c0c0b">{{ pdfLabel }}</button>
+          </sc-if>
+          <span style="margin-top:auto;font-size:13px;line-height:1.55;color:#a8a59d">Molette ou clic pour zoomer, glisser pour se déplacer. Flèches ← → pour naviguer, Échap pour fermer.</span>
+        </aside>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showDetails&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Grille&quot;},&quot;rowHeight&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:380,&quot;min&quot;:240,&quot;max&quot;:600,&quot;step&quot;:20,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Grille&quot;}}">
+const CATS = [
+  { id: 'montagne', title: 'Montagne & randonnée', intro: "Cartes de mes sorties dans les Pyrénées : itinéraires, profils altimétriques et repères de terrain, avec une identité graphique propre à chaque randonnée." },
+  { id: 'thematique', title: 'Cartographie thématique', intro: "Cartes de synthèse sur des sujets de société, de langue ou de territoire, du croquis de géographie à la carte touristique et à la page de magazine." },
+  { id: 'statistique', title: 'Cartographie statistique', intro: "Cartes issues de traitements de données : anamorphoses, carroyages, analyses en composantes principales et classifications." },
+  { id: 'plaquettes', title: 'Plaquettes & mise en page', intro: "Documents de plusieurs pages qui combinent texte, cartes et graphiques, et plaquettes de présentation." }
+];
+const CARTH = 'Géodata Paris, Carthagéo';
+const MAG = 'Magazine cartographique, Géodata Paris';
+const PERSO = 'Projet personnel';
+const GPS = 'Traces GPS personnelles';
+const A4 = 0.7072, PDFDIR = 'pdf/';
+// png: images fournies (img/t, img/f) ; pdf: rendus depuis le PDF (img/t, img/)
+const P = [
+  { cat: 'montagne', id: 'vignemale', png: 1, ars: [A4], pdf: 'TREKPLISE', pdfPages: [1], title: 'TREKLIPSE vol. 01, le Petit Vignemale', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Traversée de trois jours dans les Hautes-Pyrénées jusqu'au Petit Vignemale (3 032 m) : 42 km et 2 890 m de dénivelé. Étapes, refuges, participants et profil altimétrique sur un fond de relief sombre." },
+  { cat: 'montagne', id: 'ayous', png: 1, ars: [A4], pdf: 'TREKPLISE', pdfPages: [2], title: "TREKLIPSE vol. 02, Pic du Midi d'Ossau et lacs d'Ayous", year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Tour du Pic du Midi d'Ossau en trois jours par les lacs d'Ayous : 29 km et 2 190 m de dénivelé. Deuxième affiche de la série, avec la même grille graphique." },
+  { cat: 'montagne', id: 'aneto', png: 1, ars: [A4], pdf: 'aneto', pdfPages: [1], title: 'Pico de Aneto', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Ascension de l'Aneto (3 404 m), point culminant des Pyrénées, depuis l'Artiga de Lin : 22,85 km et 2 987 m de dénivelé. Relief en teintes hypsométriques, chiffres clés et profil altimétrique." },
+  { cat: 'montagne', id: 'juclar', png: 1, ars: [1.4139], pdf: 'juclar', pdfPages: [1], title: 'Juclar', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Boucle de deux jours entre l'Ariège et l'Andorre autour des étangs de Juclar, dessinée comme un plan technique : quadrillage, cotes, hachures et croquis des sommets." },
+  { cat: 'montagne', id: 'bassies', png: 1, ars: [A4], pdf: 'bassies', pdfPages: [1], title: 'Étangs de Bassiès', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Sortie de deux jours en Ariège traitée comme un jeu vidéo en pixel art : niveau de difficulté, missions (21,29 km, 1 422 m D+), inventaire et personnages des participants." },
+  { cat: 'montagne', id: 'fourcat', png: 1, ars: [A4], pdf: 'fourcat', title: "Étangs d'Izourt et Fourcat", year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Itinéraire vers les refuges d'Izourt et de Fourcat, mis en forme comme une interface d'écran : tracé lumineux, statistiques de la sortie (19,66 km, 1 622 m D+, 6 h 37) et profil altimétrique." },
+  { cat: 'montagne', id: 'tarbesou', png: 1, ars: [A4], pdf: 'tarbesou', pdfPages: [1], hideLayers: ['texture b'], title: 'Tarbesou', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Boucle de deux jours dans les Pyrénées ariégeoises. Courbes de niveau simplifiées, tracé de l'itinéraire, coordonnées et profil altimétrique sur fond de papier plié." },
+  { cat: 'montagne', id: 'rando_mai', png: 1, spread: 1, ars: [A4, A4], pdf: 'rando_mai', pdfPages: [1, 2], title: 'Tarbesou, Bésines et Comte', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Carnet de trois jours en Ariège mis en page comme un journal ancien : pour chaque étape, une carte, un profil altimétrique, les chiffres de la journée et des photos." },
+  { cat: 'montagne', id: 'arlas', png: 1, ars: [A4], pdf: 'arlas', pdfPages: [1], title: 'Arlas, La Pierre Saint-Martin', year: '2026', context: PERSO, tools: 'Adobe Illustrator', sources: GPS,
+    desc: "Programme de quatre randonnées sur trois jours, représenté à la manière d'un plan de réseau : une couleur et un pictogramme par itinéraire, et un profil altimétrique pour chacun." },
+  { cat: 'thematique', id: 'Chocolatine', row: 1, hi: 2, pdf: 'Chocolatine', ars: [1.1268], title: "France's sweetest difference", year: '2026', context: MAG, tools: 'Adobe Illustrator', sources: 'M. Avanzi & A. Van Hamme, 2025',
+    desc: "Répartition des deux appellations sur le territoire français, à partir d'une enquête linguistique. Réalisée pour un magazine cartographique en anglais." },
+  { cat: 'thematique', id: 'LanguesRegFr', row: 1, brk: 1, hi: 2, pdf: 'LanguesRegFr', spread: 1, ars: [0.9586, 2.2184], title: 'The linguistic mosaic of France', year: '2026', context: MAG, tools: 'Adobe Illustrator', sources: 'Ministère de la Culture, 2008',
+    desc: "Aires des langues régionales de France métropolitaine regroupées par famille (celtique, germanique, romane, basque), avec leur nom dans la langue et en anglais. L'infographie associée donne le nombre d'élèves en breton, corse, occitan et basque, représentés par les symboles de chaque territoire." },
+  { cat: 'thematique', id: 'fuseau_horaires', hi: 2, pdf: 'fuseau_horaires', ars: [1], title: 'Dansam in time time', year: '2026', context: MAG, tools: 'Adobe Illustrator', sources: 'Natural Earth, 2025',
+    desc: "Les fuseaux horaires du monde dans une projection polaire double, qui fait apparaître leur découpage en secteurs." },
+  { cat: 'thematique', id: 'ile_market', hi: 2, pdf: 'ile_market', ars: [1.4538], title: 'Market island : a surprising shared border', year: '2026', context: MAG, tools: 'Adobe Illustrator', sources: 'Z. Nikolić, 2022',
+    desc: "La frontière entre la Suède et la Finlande sur l'îlot de Märket, en mer Baltique, et son tracé singulier autour du phare." },
+  { cat: 'thematique', id: 'wallace', hi: 1, ars: [0.8002], title: 'Peculiar nature', year: '2026', context: MAG, tools: 'Adobe Illustrator', sources: 'National Geographic Society, 2023 ; UNEP-WCMC, 2018',
+    desc: "Page de magazine en anglais : la ligne Wallace, frontière biogéographique entre les faunes d'Asie et d'Australie, puis les deux grands ensembles coralliens d'Océanie, la Grande Barrière et le Triangle de corail." },
+  { cat: 'thematique', id: 'Quillat_magazine_flux', pdf: 'Quillat_magazine_flux', pdfPages: [1], ars: [1], title: "Turquie, pont entre l'Orient et l'Occident", year: '2025', context: CARTH, tools: 'Adobe Illustrator', sources: 'SOPEMI, 2024',
+    desc: "Page de magazine sur les flux migratoires de la Turquie : volume des émigrants par pays de destination et des immigrants par pays d'origine." },
+  { cat: 'thematique', id: 'quillat_CarteScolaire', pdf: 'quillat_CarteScolaire', pdfPages: [1], ars: [1.1429], title: 'Les États-Unis, organisation du territoire', year: '2025', context: CARTH, tools: 'Adobe Illustrator', sources: '',
+    desc: "Carte de synthèse dans la tradition du croquis scolaire : grands ensembles régionaux, métropoles, interfaces et flux de mondialisation." },
+  { cat: 'thematique', id: 'quillat_tourisme', pdf: 'quillat_tourisme', pdfPages: [1], ars: [0.7], title: 'Bourges, parcours des projections', year: '2025', context: CARTH, tools: 'Adobe Illustrator', sources: '',
+    desc: "Plan touristique nocturne du centre historique de Bourges : lieux de projection, itinéraire principal, accès PMR et établissements partenaires." },
+  { cat: 'statistique', id: 'ana_vf_complet_VF', row: 1, hi: 1, pdf: 'ana_vf_complet_VF', ars: [1.6999], title: "L'évolution de l'abstention aux présidentielles", year: '2025', context: CARTH, tools: 'Adobe Illustrator', sources: 'Le Monde',
+    desc: "Anamorphose des EPCI selon le nombre d'inscrits (5 itérations) : les surfaces se dilatent ou se contractent selon le poids électoral, puis portent le taux d'abstention." },
+  { cat: 'statistique', id: 'carroyage_vf', row: 1, brk: 1, hi: 1, pdf: 'carroyage_vf', ars: [1.7769], title: 'Familles politiques dominantes de 2017 à 2022', year: '2025', context: CARTH, tools: 'Adobe Illustrator', sources: 'Le Monde',
+    desc: "Carroyage hexagonal de 20 km qui agrège les votes par EPCI pour comparer la famille politique arrivée en tête en 2017 et en 2022." },
+  { cat: 'statistique', id: 'ACP_impression', row: 1, hi: 1, pdf: 'ACP_impression', ars: [2.1684], title: 'Indicateurs de développement en Afrique', year: '2025', context: CARTH, tools: 'R, Adobe Illustrator', sources: 'Banque mondiale, 2019',
+    desc: "Analyse en composantes principales sur des indicateurs de développement : une carte par composante pour lire les grandes oppositions entre pays." },
+  { cat: 'statistique', id: 'CAH_impression', row: 1, brk: 1, hi: 1, pdf: 'CAH_impression', ars: [1.4026], title: "L'Afrique en cinq profils de développement", year: '2025', context: CARTH, tools: 'R, Adobe Illustrator', sources: 'Banque mondiale, 2019',
+    desc: "Classification ascendante hiérarchique qui regroupe les pays africains en cinq profils, accompagnée du dendrogramme et du profil moyen de chaque classe." },
+  { cat: 'plaquettes', id: 'Bono_Pluvy_Ramirez_Quillat_Analyse_spatiale', pdf: 'Bono_Pluvy_Ramirez_Quillat_Analyse_spatiale', pdfPages: [1, 2, 3, 4, 5, 6, 7], ars: [1.4139, 0.7073, 0.7073, 0.7073, 0.7073, 0.7073, 0.7073], title: 'Itinéraires cyclables de la ligne 4', year: '2025', context: CARTH + ', avec Tom Bono et Sébastien Pluvy Ramirez', tools: 'QGIS, Adobe Illustrator', sources: 'Vélib’, données de bruit et de pollution',
+    desc: "Dossier d'analyse spatiale comparant les itinéraires à vélo entre Bagneux et la Porte de Clignancourt selon plusieurs critères : distance, effort, sécurité, bruit, pollution, disponibilité des Vélib’, jusqu'à un itinéraire optimal." },
+  { cat: 'plaquettes', id: '4pagesINSEE_mobilitesRennes', pdf: '4pagesINSEE_mobilitesRennes', pdfPages: [1, 2, 3, 4], ars: [0.7068, 0.7068, 0.7068, 0.7068], title: "Mobilités domicile-travail dans l'aire de Rennes", year: '2025', context: CARTH, tools: 'Canva', sources: 'Insee',
+    desc: "Publication de 4 pages au format d'une étude Insee : texte d'analyse, cartes des flux et graphiques sur les déplacements domicile-travail dans l'aire d'attraction de Rennes." },
+  // pdf : fichier à déposer dans le dossier pdf/ (ex. pdf/plaquette_alpha.pdf). link : adresse du PDF hébergé ailleurs (Drive, Calaméo…) ; le bouton « Ouvrir le PDF » apparaît dès qu'elle est renseignée
+  { cat: 'plaquettes', id: 'plaq_alpha', hi: 1, ars: [0.707], pdf: 'plaquette_alpha', link: '', title: 'Plaquette Alpha 2024', year: '2024', context: 'BDE Bign Bang, ENSG Géomatique', tools: '',
+    desc: "Plaquette de présentation de l'ENSG Géomatique et de sa vie étudiante pour le BDE Bign Bang, construite sur une grille de formes géométriques déclinée en verts." },
+  { cat: 'plaquettes', id: 'plaq_uge', hi: 1, ars: [0.707], pdf: 'plaquette_UGE', link: '', title: 'Guide des Associations 2026-2027', year: '2026', context: 'Université Gustave Eiffel, vie associative', tools: '',
+    desc: "Guide des associations étudiantes de l'Université Gustave Eiffel, qui reprend la grille géométrique de la plaquette Alpha avec le symbole de l'université." }
+];
+// Pour ajouter un travail : déposez son PDF dans pdf/ et ajoutez une entrée avec pdf: 'nom-du-fichier' et pdfPages: [1, 2…], sans ars (la miniature sera générée depuis le PDF).
+P.forEach(p => {
+  if (!p.ars) { p.noImg = true; p.ars = p.pdfPages.map(() => A4); }
+  p.n = p.ars.length;
+  p.thumbs = p.ars.map((_, k) => p.hi === 2 ? `img/src/${p.id}-${k + 1}.png` : p.hi ? `img/w/${p.id}-${k + 1}.webp` : `img/t/${p.id}-${k + 1}.jpg`);
+  p.fulls = p.ars.map((_, k) => p.hi ? `img/src/${p.id}-${k + 1}.png` : p.png ? `img/f/${p.id}-${k + 1}.jpg` : `img/${p.id}-${k + 1}.jpg`);
+  p.cardAr = p.spread ? p.ars.reduce((a, b) => a + b, 0) + 0.012 : p.ars[0];
+});
+const SKILLS = [
+  { label: 'SIG & cartographie', items: 'QGIS, QField, ArcGIS, Esri Story Maps, MapLibre GL, Adobe Illustrator, Canva' },
+  { label: 'Données & développement', items: 'Python, R, SQL, PostGIS, JavaScript, React, Django REST Framework, HTML/CSS, Git, Docker' },
+  { label: 'Terrain', items: 'Station totale Leica, GNSS, scanner laser, topométrie, photogrammétrie, géodésie' },
+  { label: 'Langues', items: 'Français, anglais courant (TOEIC 915), espagnol A2' }
+];
+const ZOOMS = [1, 1.5, 2.5, 4, 6];
+const HD_PX = 9000;
+const idxOf = (id) => P.findIndex(p => p.id === id);
+let pdfjsP = null;
+const loadPdfjs = () => pdfjsP || (pdfjsP = import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs').then(m => { m.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs'; return m; }));
+const docs = {};
+
+class Component extends DCLogic {
+  state = { open: null, page: 1, z: 1, tx: 0, ty: 0, dragging: false, anim: true, infoOpen: true, loadingPdf: false, hd: {}, hdBusy: null, th: {}, ar: {} };
+  failed = new Set();
+  stage = null;
+  componentDidMount() {
+    this.onKey = (e) => {
+      if (!this.state.open) return;
+      if (e.key === 'Escape') this.close();
+      else if (e.key === 'ArrowRight') this.step(1);
+      else if (e.key === 'ArrowLeft') this.step(-1);
+    };
+    window.addEventListener('keydown', this.onKey);
+    setTimeout(() => this.thumbQueue(), 400);
+  }
+  componentWillUnmount() { this.unmounted = true; window.removeEventListener('keydown', this.onKey); this.setStage(null); }
+  componentDidUpdate() { clearTimeout(this.hdT); this.hdT = setTimeout(() => this.maybeHD(), 250); }
+  async renderPdf(p, pageNo, px, quality) {
+    const pdfjs = await loadPdfjs();
+    const doc = docs[p.pdf] || (docs[p.pdf] = pdfjs.getDocument({ url: PDFDIR + p.pdf + '.pdf', isEvalSupported: false, standardFontDataUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/standard_fonts/' }).promise);
+    const d = await doc;
+    let oc;
+    if (p.hideLayers) { oc = await d.getOptionalContentConfig(); for (const [id, g] of Object.entries(oc.getGroups() || {})) if (p.hideLayers.includes(g.name)) oc.setVisibility(id, false); }
+    const page = await d.getPage(pageNo);
+    const v0 = page.getViewport({ scale: 1 });
+    const v = page.getViewport({ scale: px / Math.max(v0.width, v0.height) });
+    const c = document.createElement('canvas'); c.width = Math.round(v.width); c.height = Math.round(v.height);
+    const ctx = c.getContext('2d'); if (!p.alpha) { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); }
+    await page.render({ canvasContext: ctx, viewport: v, intent: 'print', ...(p.alpha ? { background: 'rgba(0,0,0,0)' } : {}), ...(oc ? { optionalContentConfigPromise: Promise.resolve(oc) } : {}) }).promise;
+    const blob = await new Promise(r => p.alpha ? c.toBlob(r, 'image/png') : c.toBlob(r, 'image/jpeg', quality));
+    c.width = c.height = 0;
+    return { url: URL.createObjectURL(blob), ar: v0.width / v0.height };
+  }
+  async thumbQueue() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    for (const p of P) {
+      if (!p.noImg || this.unmounted || this.failed.has(p.pdf)) continue;
+      try {
+        const r = await this.renderPdf(p, p.pdfPages[0], Math.round(900 * dpr), 0.9);
+        this.setState(s => ({ th: { ...s.th, [p.id]: r.url }, ar: { ...s.ar, [p.id]: r.ar } }));
+      } catch (e) { this.failed.add(p.pdf); }
+    }
+  }
+  setStage = (el) => {
+    if (this.stage) this.stage.removeEventListener('wheel', this.onWheel);
+    this.stage = el;
+    if (el) el.addEventListener('wheel', this.onWheel, { passive: false });
+  };
+  hdKey() { const p = P[this.state.open - 1]; return p && p.pdfPages ? `${p.id}-${this.state.page}` : null; }
+  async maybeHD() {
+    const { open, z, hd, hdBusy } = this.state;
+    if (!open || hdBusy || !this.stage) return;
+    const key = this.hdKey(); if (!key) return;
+    const p = P[open - 1]; if (this.failed.has(p.pdf)) return;
+    const r = this.stage.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    const target = Math.min(HD_PX, Math.round(Math.max(r.width, r.height) * dpr * Math.max(1, z)));
+    if (hd[key] && hd[key].px >= target * 0.8) return;
+    this.setState({ hdBusy: key });
+    try {
+      const out = await this.renderPdf(p, p.pdfPages[this.state.page - 1], target, 0.93);
+      this.setState(s => { const old = s.hd[key]; if (old) setTimeout(() => URL.revokeObjectURL(old.url), 2000); return { hd: { ...s.hd, [key]: { url: out.url, px: target } }, hdBusy: null }; });
+    } catch (e) { console.warn('PDF indisponible, image utilisée', e); this.failed.add(p.pdf); this.setState({ hdBusy: null }); }
+  }
+  async fetchFile(path, downloadName) {
+    const win = downloadName ? null : window.open('', '_blank');
+    try {
+      const res = await fetch(path); if (!res.ok) throw new Error(res.status);
+      const url = URL.createObjectURL(await res.blob());
+      if (downloadName) { const a = document.createElement('a'); a.href = url; a.download = downloadName; document.body.appendChild(a); a.click(); a.remove(); }
+      else if (win) win.location.href = url; else window.open(url, '_blank');
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch (e) { if (win) win.close(); window.open(path, '_blank'); }
+  }
+  rel(e) { const r = this.stage.getBoundingClientRect(); return { x: e.clientX - r.left - r.width / 2, y: e.clientY - r.top - r.height / 2 }; }
+  zoomTo(nz, pt) {
+    nz = Math.max(1, Math.min(8, nz));
+    const { z, tx, ty } = this.state; const p = pt || { x: 0, y: 0 };
+    if (nz === 1) return this.setState({ z: 1, tx: 0, ty: 0 });
+    this.setState({ z: nz, tx: p.x - (p.x - tx) * (nz / z), ty: p.y - (p.y - ty) * (nz / z) });
+  }
+  onWheel = (e) => { e.preventDefault(); this.setState({ anim: false }); this.zoomTo(this.state.z * Math.exp(-e.deltaY * 0.0022), this.rel(e)); };
+  onDown = (e) => {
+    if (e.button !== 0 || e.target.tagName === 'BUTTON') return;
+    const sx = e.clientX, sy = e.clientY, ox = this.state.tx, oy = this.state.ty; let moved = false;
+    const move = (ev) => {
+      const dx = ev.clientX - sx, dy = ev.clientY - sy;
+      if (!moved && Math.hypot(dx, dy) > 4) { moved = true; this.setState({ dragging: true, anim: false }); }
+      if (moved && this.state.z > 1) this.setState({ tx: ox + dx, ty: oy + dy });
+    };
+    const up = (ev) => {
+      window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up);
+      this.setState({ dragging: false });
+      if (!moved) { this.setState({ anim: true }); this.zoomTo(this.state.z > 1 ? 1 : 2.5, this.rel(ev)); }
+    };
+    window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
+  };
+  open(i, page = 1) { this.setState({ open: i + 1, page, z: 1, tx: 0, ty: 0, anim: false }); document.body.style.overflow = 'hidden'; }
+  close = () => { this.setState({ open: null }); document.body.style.overflow = ''; };
+  step(d) {
+    const i = this.state.open - 1, p = P[i], pg = this.state.page + d;
+    if (pg >= 1 && pg <= p.n) return this.setState({ page: pg, z: 1, tx: 0, ty: 0, anim: false });
+    const ni = (i + d + P.length) % P.length;
+    this.open(ni, d > 0 ? 1 : P[ni].n);
+  }
+  renderVals() {
+    const showDetails = this.props.showDetails ?? true;
+    const rowH = this.props.rowHeight ?? 380;
+    const categories = CATS.map((c) => {
+      const items = P.map((p, i) => ({ p, i })).filter(o => o.p.cat === c.id).map(({ p, i }) => ({
+        ...p, ar: this.state.ar[p.id] || p.cardAr, grow: (this.state.ar[p.id] || p.cardAr).toFixed(3), basis: Math.round((this.state.ar[p.id] || p.cardAr) * rowH),
+        flex: p.row ? `${(this.state.ar[p.id] || p.cardAr).toFixed(3)} 1 ${Math.round((this.state.ar[p.id] || p.cardAr) * 200)}px` : `${(this.state.ar[p.id] || p.cardAr).toFixed(3)} 1 ${Math.round((this.state.ar[p.id] || p.cardAr) * rowH)}px`,
+        maxW: p.row ? '100%' : `min(100%, ${Math.round((this.state.ar[p.id] || p.cardAr) * rowH * 1.3)}px)`,
+        thumb: this.state.th[p.id] || (p.noImg ? '' : p.thumbs[0]), cardImgs: p.spread ? p.thumbs.map((t, k) => ({ src: t, grow: p.ars[k], open: () => this.open(i, k + 1) })) : [{ src: this.state.th[p.id] || (p.noImg ? '' : p.thumbs[0]), grow: 1, open: () => this.open(i) }], multi: p.n > 1 && !p.spread, pagesLabel: `${p.n} pages`,
+        meta: `${p.year}, ${p.context}`, open: () => this.open(i)
+      }));
+      return { ...c, count: `${items.length} ${items.length > 1 ? 'travaux' : 'travail'}`, items };
+    });
+    const { open, page, z, tx, ty, dragging, anim, infoOpen, loadingPdf, hd, hdBusy } = this.state;
+    let lb = null, hdLabel = '';
+    if (open) {
+      const i = open - 1, p = P[i], key = this.hdKey(), hdUrl = key && hd[key] ? hd[key].url : null;
+      lb = { ...p, stageBg: p.hi ? '#F6F3ED' : 'transparent', category: CATS.find(c => c.id === p.cat).title, src: hdUrl || p.fulls[page - 1], multi: p.n > 1, pdf: p.pdf || p.link ? 1 : 0,
+        counter: `${i + 1} / ${P.length}` + (p.n > 1 ? `, page ${page} sur ${p.n}` : ''),
+        pageList: p.thumbs.map((t, k) => ({ n: k + 1, thumb: t, border: k + 1 === page ? '#f1f0ec' : 'transparent', opacity: k + 1 === page ? 1 : 0.55, go: () => this.setState({ page: k + 1, z: 1, tx: 0, ty: 0 }) })) };
+      hdLabel = hdBusy === key && key ? 'Rendu du PDF…' : hdUrl ? 'Rendu PDF' : '';
+    }
+    const nextZ = (dir) => { const list = dir > 0 ? ZOOMS : [...ZOOMS].reverse(); return list.find(v => dir > 0 ? v > z + 0.01 : v < z - 0.01) ?? (dir > 0 ? 8 : 1); };
+    return {
+      categories, showDetails, skills: SKILLS, lb, infoOpen, hdLabel,
+      totalLabel: `${P.length} cartes et documents`,
+      heroA: () => this.open(idxOf('bassies')), heroB: () => this.open(idxOf('vignemale')), heroC: () => this.open(idxOf('aneto')),
+      downloadCV: () => this.fetchFile('CV_Mael_Quillat.pdf', 'CV_Mael_Quillat.pdf'),
+      openPdf: async () => { if (!lb || !lb.pdf) return; if (P[open - 1].link) { window.open(P[open - 1].link, '_blank', 'noopener'); return; } this.setState({ loadingPdf: true }); await this.fetchFile(PDFDIR + P[open - 1].pdf + '.pdf'); this.setState({ loadingPdf: false }); },
+      pdfLabel: loadingPdf ? 'Chargement…' : 'Ouvrir le PDF ↗',
+      stageRef: this.setStage, onDown: this.onDown,
+      transform: `translate(${tx}px, ${ty}px) scale(${z})`,
+      transition: anim && !dragging ? 'transform 220ms ease' : 'none',
+      cursor: dragging ? 'grabbing' : z > 1 ? 'grab' : 'zoom-in',
+      zoomLabel: `${Math.round(z * 100)} %`,
+      zoomIn: () => { this.setState({ anim: true }); this.zoomTo(nextZ(1)); },
+      zoomOut: () => { this.setState({ anim: true }); this.zoomTo(nextZ(-1)); },
+      zoomReset: () => this.setState({ z: 1, tx: 0, ty: 0, anim: true }),
+      toggleInfo: () => this.setState(s => ({ infoOpen: !s.infoOpen })),
+      close: this.close, prev: () => this.step(-1), next: () => this.step(1)
+    };
+  }
+}
+</script>
+</body>
+</html>
