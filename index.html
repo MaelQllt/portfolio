@@ -16,6 +16,30 @@ html,body{margin:0;background:#F6F3ED;color:#313851;font-family:'Hanken Grotesk'
 a{color:#313851;text-decoration-thickness:1px;text-underline-offset:4px}
 a:hover{color:#5d6477}
 *{box-sizing:border-box}
+.ic{display:inline-block;flex:none;width:1.15em;height:1.15em;vertical-align:-0.2em;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+.ic-close{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E")}
+.ic-left{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7'/%3E%3C/svg%3E")}
+.ic-right{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E")}
+.ic-down{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M19 12l-7 7-7-7'/%3E%3C/svg%3E")}
+.ic-ext{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E")}
+.ic-minus{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3C/svg%3E")}
+.ic-plus{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' view%42ox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5v14'/%3E%3C/svg%3E")}
+.lb-close-info{display:none}
+@media (max-width:760px){
+  .lb{grid-template-columns:minmax(0,1fr)!important}
+  .lb-bar{padding:10px 10px 10px 14px!important;gap:10px!important}
+  .lb-desk{display:none!important}
+  .lb-img{inset:6px!important;width:calc(100% - 12px)!important;height:calc(100% - 12px)!important}
+  .lb-nav{width:40px!important;height:40px!important;background:rgba(34,33,31,0.7)!important}
+  .lb-nav-l{left:6px!important}
+  .lb-nav-r{right:6px!important}
+  .lb-thumbs{justify-content:flex-start!important;padding:8px 10px 10px!important}
+  .lb-thumbs button{height:52px!important}
+  .lb-info{position:absolute!important;left:0;right:0;bottom:0;z-index:5;width:100%!important;max-height:72%;border-left:0!important;border-top:1px solid #33322e;background:#0c0c0b;padding:20px 18px calc(20px + env(safe-area-inset-bottom))!important;gap:14px!important;box-shadow:0 -20px 40px rgba(0,0,0,0.5)}
+  .lb-info h3{font-size:23px!important}
+  .lb-info .lb-help{margin-top:4px!important}
+  .lb-close-info{display:block}
+}
 </style>
 </helmet>
 <div style="min-height:100vh;display:flex;flex-direction:column">
@@ -36,7 +60,7 @@ a:hover{color:#5d6477}
         <h1 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:clamp(56px,7.4vw,112px);line-height:0.95;font-weight:600;letter-spacing:-0.03em;text-wrap:balance">Cartes, randonnées et mises en page</h1>
         <p style="margin:0;font-size:clamp(18px,1.5vw,21px);line-height:1.5;max-width:40ch;color:#5d6477;text-wrap:pretty">Maël Quillat, cartographe et développeur web. Élève ingénieur en géomatique à Géodata Paris, filière Carthagéo.</p>
         <div style="display:flex;gap:28px;flex-wrap:wrap;font-size:15px">
-          <a href="#montagne">Voir les travaux ↓</a>
+          <a href="#montagne">Voir les travaux <span class="ic ic-down" aria-hidden="true"></span></a>
           <a href="mailto:mael.quillat@orange.fr">mael.quillat@orange.fr</a>
         </div>
       </div>
@@ -129,27 +153,27 @@ a:hover{color:#5d6477}
   </footer>
 
   <sc-if value="{{ lb }}" hint-placeholder-val="{{ false }}">
-    <div role="dialog" aria-modal="true" style="position:fixed;inset:0;z-index:50;background:#0c0c0b;color:#f1f0ec;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,1fr)">
+    <div role="dialog" aria-modal="true" class="lb" style="position:fixed;inset:0;z-index:50;background:#0c0c0b;color:#f1f0ec;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,1fr)">
       <div style="position:relative;display:flex;flex-direction:column;min-width:0;min-height:0">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;font-size:14px">
+        <div class="lb-bar" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;font-size:14px">
           <span style="color:#a8a59d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ lb.counter }}</span>
           <div style="display:flex;gap:6px;align-items:center">
-            <span style="color:#a8a59d;font-size:13px;margin-right:8px">{{ hdLabel }}</span>
-            <button onClick="{{ zoomOut }}" aria-label="Dézoomer" style="width:38px;height:38px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">−</button>
-            <span style="min-width:58px;text-align:center">{{ zoomLabel }}</span>
-            <button onClick="{{ zoomIn }}" aria-label="Zoomer" style="width:38px;height:38px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">+</button>
-            <button onClick="{{ zoomReset }}" style="height:38px;padding:0 14px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-family:inherit;font-size:13.5px" style-hover="background:#33322e">Ajuster</button>
+            <span class="lb-desk" style="color:#a8a59d;font-size:13px;margin-right:8px">{{ hdLabel }}</span>
+            <button onClick="{{ zoomOut }}" aria-label="Dézoomer" class="lb-desk" style="width:38px;height:38px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e"><span class="ic ic-minus"></span></button>
+            <span class="lb-desk" style="min-width:58px;text-align:center">{{ zoomLabel }}</span>
+            <button onClick="{{ zoomIn }}" aria-label="Zoomer" class="lb-desk" style="width:38px;height:38px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e"><span class="ic ic-plus"></span></button>
+            <button onClick="{{ zoomReset }}" class="lb-desk" style="height:38px;padding:0 14px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-family:inherit;font-size:13.5px" style-hover="background:#33322e">Ajuster</button>
             <button onClick="{{ toggleInfo }}" style="height:38px;padding:0 14px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-family:inherit;font-size:13.5px" style-hover="background:#33322e">Infos</button>
-            <button onClick="{{ close }}" aria-label="Fermer" style="width:38px;height:38px;background:#f1f0ec;color:#0c0c0b;border:0;cursor:pointer;font-size:15px;margin-left:6px">✕</button>
+            <button onClick="{{ close }}" aria-label="Fermer" style="width:38px;height:38px;background:#f1f0ec;color:#0c0c0b;border:0;cursor:pointer;font-size:18px;margin-left:6px"><span class="ic ic-close"></span></button>
           </div>
         </div>
-        <div ref="{{ stageRef }}" onMouseDown="{{ onDown }}" style="position:relative;flex:1;min-height:0;overflow:hidden;background:{{ lb.stageBg }};cursor:{{ cursor }};user-select:none">
-          <img src="{{ lb.src }}" alt="{{ lb.title }}" draggable="false" style="position:absolute;inset:20px;width:calc(100% - 40px);height:calc(100% - 40px);object-fit:contain;transform:{{ transform }};transform-origin:center;transition:{{ transition }}">
-          <button onClick="{{ prev }}" aria-label="Précédent" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:46px;height:46px;background:rgba(34,33,31,0.9);color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">←</button>
-          <button onClick="{{ next }}" aria-label="Suivant" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:46px;height:46px;background:rgba(34,33,31,0.9);color:#f1f0ec;border:0;cursor:pointer;font-size:18px" style-hover="background:#33322e">→</button>
+        <div ref="{{ stageRef }}" onMouseDown="{{ onDown }}" style="position:relative;flex:1;min-height:0;overflow:hidden;background:{{ lb.stageBg }};cursor:{{ cursor }};user-select:none;-webkit-user-select:none;touch-action:none">
+          <img src="{{ lb.src }}" alt="{{ lb.title }}" draggable="false" class="lb-img" style="position:absolute;inset:20px;width:calc(100% - 40px);height:calc(100% - 40px);object-fit:contain;transform:{{ transform }};transform-origin:center;transition:{{ transition }}">
+          <button onClick="{{ prev }}" aria-label="Précédent" class="lb-nav lb-nav-l" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:46px;height:46px;background:rgba(34,33,31,0.9);color:#f1f0ec;border:0;cursor:pointer;font-size:20px" style-hover="background:#33322e"><span class="ic ic-left"></span></button>
+          <button onClick="{{ next }}" aria-label="Suivant" class="lb-nav lb-nav-r" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:46px;height:46px;background:rgba(34,33,31,0.9);color:#f1f0ec;border:0;cursor:pointer;font-size:20px" style-hover="background:#33322e"><span class="ic ic-right"></span></button>
         </div>
         <sc-if value="{{ lb.multi }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex;gap:8px;justify-content:center;padding:12px 20px 16px;overflow-x:auto">
+          <div class="lb-thumbs" style="display:flex;gap:8px;justify-content:center;padding:12px 20px 16px;overflow-x:auto">
             <sc-for list="{{ lb.pageList }}" as="pg" hint-placeholder-count="2">
               <button onClick="{{ pg.go }}" aria-label="Page {{ pg.n }}" style="flex:none;height:64px;padding:0;border:2px solid {{ pg.border }};background:#22211f;cursor:pointer;opacity:{{ pg.opacity }}">
                 <img src="{{ pg.thumb }}" alt="" style="height:100%;display:block">
@@ -159,8 +183,11 @@ a:hover{color:#5d6477}
         </sc-if>
       </div>
       <sc-if value="{{ infoOpen }}" hint-placeholder-val="{{ true }}">
-        <aside style="width:min(360px,80vw);border-left:1px solid #33322e;padding:28px 24px;overflow-y:auto;display:flex;flex-direction:column;gap:18px">
-          <span style="font-size:14px;color:#a8a59d">{{ lb.category }}</span>
+        <aside class="lb-info" style="width:min(360px,80vw);border-left:1px solid #33322e;padding:28px 24px;overflow-y:auto;display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+            <span style="font-size:14px;color:#a8a59d">{{ lb.category }}</span>
+            <button onClick="{{ toggleInfo }}" aria-label="Masquer les infos" class="lb-close-info" style="flex:none;width:34px;height:34px;background:#22211f;color:#f1f0ec;border:0;cursor:pointer;font-size:17px"><span class="ic ic-close"></span></button>
+          </div>
           <h3 style="margin:0;font-family:'Hanken Grotesk',system-ui;font-size:28px;line-height:1.1;font-weight:600;letter-spacing:-0.02em;text-wrap:balance">{{ lb.title }}</h3>
           <p style="margin:0;font-size:15.5px;line-height:1.55;text-wrap:pretty">{{ lb.desc }}</p>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14px;line-height:1.45;border-top:1px solid #33322e;padding-top:16px">
@@ -170,9 +197,9 @@ a:hover{color:#5d6477}
             <sc-if value="{{ lb.sources }}" hint-placeholder-val="{{ true }}"><span style="color:#a8a59d">Sources</span><span>{{ lb.sources }}</span></sc-if>
           </div>
           <sc-if value="{{ lb.pdf }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ openPdf }}" style="align-self:flex-start;padding:10px 16px;border:1px solid #f1f0ec;background:none;color:#f1f0ec;cursor:pointer;font-family:inherit;font-size:14px" style-hover="background:#f1f0ec;color:#0c0c0b">{{ pdfLabel }}</button>
+            <button onClick="{{ openPdf }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid #f1f0ec;background:none;color:#f1f0ec;cursor:pointer;font-family:inherit;font-size:14px" style-hover="background:#f1f0ec;color:#0c0c0b">{{ pdfLabel }}<span class="ic ic-ext" aria-hidden="true"></span></button>
           </sc-if>
-          <span style="margin-top:auto;font-size:13px;line-height:1.55;color:#a8a59d">Molette ou clic pour zoomer, glisser pour se déplacer. Flèches ← → pour naviguer, Échap pour fermer.</span>
+          <span class="lb-help" style="margin-top:auto;font-size:13px;line-height:1.55;color:#a8a59d">{{ helpText }}</span>
         </aside>
       </sc-if>
     </div>
@@ -261,13 +288,17 @@ const SKILLS = [
 ];
 const ZOOMS = [1, 1.5, 2.5, 4, 6];
 const HD_PX = 9000;
+// Écran tactile ou petit écran : rendu HD plus léger (Safari iOS refuse les canvas de plus de ~16 Mpx)
+const TOUCH = window.matchMedia('(pointer: coarse)').matches;
+const SMALL = window.matchMedia('(max-width: 760px)').matches;
+const MAX_AREA = TOUCH ? 12e6 : 60e6;
 const idxOf = (id) => P.findIndex(p => p.id === id);
 let pdfjsP = null;
 const loadPdfjs = () => pdfjsP || (pdfjsP = import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs').then(m => { m.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs'; return m; }));
 const docs = {};
 
 class Component extends DCLogic {
-  state = { open: null, page: 1, z: 1, tx: 0, ty: 0, dragging: false, anim: true, infoOpen: true, loadingPdf: false, hd: {}, hdBusy: null, th: {}, ar: {} };
+  state = { open: null, page: 1, z: 1, tx: 0, ty: 0, dragging: false, anim: true, infoOpen: !SMALL, loadingPdf: false, hd: {}, hdBusy: null, th: {}, ar: {} };
   failed = new Set();
   stage = null;
   componentDidMount() {
@@ -290,7 +321,7 @@ class Component extends DCLogic {
     if (p.hideLayers) { oc = await d.getOptionalContentConfig(); for (const [id, g] of Object.entries(oc.getGroups() || {})) if (p.hideLayers.includes(g.name)) oc.setVisibility(id, false); }
     const page = await d.getPage(pageNo);
     const v0 = page.getViewport({ scale: 1 });
-    const v = page.getViewport({ scale: px / Math.max(v0.width, v0.height) });
+    const v = page.getViewport({ scale: Math.min(px / Math.max(v0.width, v0.height), Math.sqrt(MAX_AREA / (v0.width * v0.height))) });
     const c = document.createElement('canvas'); c.width = Math.round(v.width); c.height = Math.round(v.height);
     const ctx = c.getContext('2d'); if (!p.alpha) { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height); }
     await page.render({ canvasContext: ctx, viewport: v, intent: 'print', ...(p.alpha ? { background: 'rgba(0,0,0,0)' } : {}), ...(oc ? { optionalContentConfigPromise: Promise.resolve(oc) } : {}) }).promise;
@@ -311,7 +342,58 @@ class Component extends DCLogic {
   setStage = (el) => {
     if (this.stage) this.stage.removeEventListener('wheel', this.onWheel);
     this.stage = el;
+    if (this.stage) for (const t of ['touchstart', 'touchmove', 'touchend', 'touchcancel']) this.stage.removeEventListener(t, this.onTouch);
+    this.stage = el;
     if (el) el.addEventListener('wheel', this.onWheel, { passive: false });
+    if (el) for (const t of ['touchstart', 'touchmove', 'touchend', 'touchcancel']) el.addEventListener(t, this.onTouch, { passive: false });
+  };
+  // Tactile : pincer pour zoomer, glisser pour se déplacer (zoomé) ou changer de page, double-toucher pour zoomer
+  onTouch = (e) => {
+    if (e.target.closest('button')) return;
+    e.preventDefault();
+    const ts = e.touches, g = this.gest;
+    if (e.type === 'touchstart') {
+      const { z, tx, ty } = this.state;
+      if (ts.length >= 2) {
+        const a = this.rel(ts[0]), b = this.rel(ts[1]);
+        this.gest = { pinch: true, d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, m0: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }, z0: z, tx0: tx, ty0: ty, moved: true };
+      } else if (ts.length === 1 && !g) {
+        this.gest = { sx: ts[0].clientX, sy: ts[0].clientY, tx0: tx, ty0: ty, t: Date.now(), moved: false };
+      }
+      this.setState({ anim: false });
+      return;
+    }
+    if (!g) return;
+    if (e.type === 'touchmove') {
+      if (g.pinch && ts.length >= 2) {
+        const a = this.rel(ts[0]), b = this.rel(ts[1]);
+        const m = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        const nz = Math.max(0.8, Math.min(8, g.z0 * Math.hypot(a.x - b.x, a.y - b.y) / g.d0));
+        this.setState({ z: nz, tx: m.x - (g.m0.x - g.tx0) * (nz / g.z0), ty: m.y - (g.m0.y - g.ty0) * (nz / g.z0), dragging: true });
+      } else if (!g.pinch && ts.length === 1) {
+        const dx = ts[0].clientX - g.sx, dy = ts[0].clientY - g.sy;
+        if (!g.moved && Math.hypot(dx, dy) > 8) g.moved = true;
+        g.dx = dx; g.dy = dy;
+        if (g.moved && this.state.z > 1.01) this.setState({ tx: g.tx0 + dx, ty: g.ty0 + dy, dragging: true });
+      }
+      return;
+    }
+    // touchend / touchcancel
+    if (ts.length > 0) {
+      // un doigt reste après un pincement : on repart en déplacement depuis ce doigt
+      if (g.pinch && ts.length === 1) this.gest = { sx: ts[0].clientX, sy: ts[0].clientY, tx0: this.state.tx, ty0: this.state.ty, t: 0, moved: true };
+      return;
+    }
+    this.gest = null;
+    this.setState({ dragging: false, anim: true });
+    if (g.pinch) { if (this.state.z < 1.05) this.setState({ z: 1, tx: 0, ty: 0 }); return; }
+    if (e.type === 'touchcancel') return;
+    if (this.state.z <= 1.01 && g.moved && Math.abs(g.dx) > 50 && Math.abs(g.dx) > Math.abs(g.dy) * 1.2) { this.step(g.dx < 0 ? 1 : -1); return; }
+    if (!g.moved && Date.now() - g.t < 300) {
+      const now = Date.now(), pt = this.rel(e.changedTouches[0]);
+      if (this.lastTap && now - this.lastTap < 320) { this.lastTap = 0; this.zoomTo(this.state.z > 1.01 ? 1 : 2.5, pt); }
+      else this.lastTap = now;
+    }
   };
   hdKey() { const p = P[this.state.open - 1]; return p && p.pdfPages ? `${p.id}-${this.state.page}` : null; }
   async maybeHD() {
@@ -347,7 +429,7 @@ class Component extends DCLogic {
   }
   onWheel = (e) => { e.preventDefault(); this.setState({ anim: false }); this.zoomTo(this.state.z * Math.exp(-e.deltaY * 0.0022), this.rel(e)); };
   onDown = (e) => {
-    if (e.button !== 0 || e.target.tagName === 'BUTTON') return;
+    if (e.button !== 0 || e.target.closest('button')) return;
     const sx = e.clientX, sy = e.clientY, ox = this.state.tx, oy = this.state.ty; let moved = false;
     const move = (ev) => {
       const dx = ev.clientX - sx, dy = ev.clientY - sy;
@@ -361,7 +443,7 @@ class Component extends DCLogic {
     };
     window.addEventListener('mousemove', move); window.addEventListener('mouseup', up);
   };
-  open(i, page = 1) { this.setState({ open: i + 1, page, z: 1, tx: 0, ty: 0, anim: false }); document.body.style.overflow = 'hidden'; }
+  open(i, page = 1) { this.gest = null; this.setState({ open: i + 1, page, z: 1, tx: 0, ty: 0, anim: false }); document.body.style.overflow = 'hidden'; }
   close = () => { this.setState({ open: null }); document.body.style.overflow = ''; };
   step(d) {
     const i = this.state.open - 1, p = P[i], pg = this.state.page + d;
@@ -395,10 +477,13 @@ class Component extends DCLogic {
     return {
       categories, showDetails, skills: SKILLS, lb, infoOpen, hdLabel,
       totalLabel: `${P.length} cartes et documents`,
+      helpText: TOUCH ? 'Pincer ou toucher deux fois pour zoomer, glisser pour se déplacer. Balayer vers la gauche ou la droite pour changer de page.' : 'Molette ou clic pour zoomer, glisser pour se déplacer. Flèches du clavier pour naviguer, Échap pour fermer.',
       heroA: () => this.open(idxOf('bassies')), heroB: () => this.open(idxOf('vignemale')), heroC: () => this.open(idxOf('aneto')),
       downloadCV: () => this.fetchFile('CV_Mael_Quillat.pdf', 'CV_Mael_Quillat.pdf'),
-      openPdf: async () => { if (!lb || !lb.pdf) return; if (P[open - 1].link) { window.open(P[open - 1].link, '_blank', 'noopener'); return; } this.setState({ loadingPdf: true }); await this.fetchFile(PDFDIR + P[open - 1].pdf + '.pdf'); this.setState({ loadingPdf: false }); },
-      pdfLabel: loadingPdf ? 'Chargement…' : 'Ouvrir le PDF ↗',
+      openPdf: async () => { if (!lb || !lb.pdf) return; if (P[open - 1].link) { window.open(P[open - 1].link, '_blank', 'noopener'); return; }
+        // Sur mobile, on laisse le lecteur PDF du téléphone ouvrir directement le fichier
+        if (TOUCH) { window.open(PDFDIR + P[open - 1].pdf + '.pdf', '_blank', 'noopener'); return; } this.setState({ loadingPdf: true }); await this.fetchFile(PDFDIR + P[open - 1].pdf + '.pdf'); this.setState({ loadingPdf: false }); },
+      pdfLabel: loadingPdf ? 'Chargement…' : 'Ouvrir le PDF',
       stageRef: this.setStage, onDown: this.onDown,
       transform: `translate(${tx}px, ${ty}px) scale(${z})`,
       transition: anim && !dragging ? 'transform 220ms ease' : 'none',
