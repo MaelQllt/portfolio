@@ -395,7 +395,8 @@ class Component extends DCLogic {
       else this.lastTap = now;
     }
   };
-  hdKey() { const p = P[this.state.open - 1]; return p && p.pdfPages ? `${p.id}-${this.state.page}` : null; }
+  // Les travaux avec image fournie (png) gardent l'export d'origine : pdf.js rend mal certains masques d'écrêtage d'Illustrator
+  hdKey() { const p = P[this.state.open - 1]; return p && p.pdfPages && !p.png ? `${p.id}-${this.state.page}` : null; }
   async maybeHD() {
     const { open, z, hd, hdBusy } = this.state;
     if (!open || hdBusy || !this.stage) return;
